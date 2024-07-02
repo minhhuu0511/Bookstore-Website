@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Edit Book</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+
+</head>
+
+<style>
+/* Thay đổi màu sắc cho header */
+.header {
+	background-color: #343a40;
+	padding: 20px;
+	color: #fff;
+}
+
+/* Thay đổi màu sắc cho tiêu đề */
+h1 {
+	color: #000;
+}
+
+/* Thay đổi màu sắc cho nút Create New Book */
+.create-book-btn {
+	background-color: #28a745;
+	color: #fff;
+	padding: 8px 16px;
+	border-radius: 4px;
+	text-decoration: none;
+}
+
+/* Thay đổi màu sắc cho ô vuông sách */
+.book-box {
+	background-color: #fff;
+	padding: 20px;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+/* Thay đổi màu sắc cho các dòng trong bảng */
+.book-row {
+	background-color: #fff;
+}
+
+/* Thay đổi màu sắc và chữ cho nút Edit */
+.edit-link {
+	background-color: #ffc107;
+	color: #000;
+	padding: 8px 16px;
+	border-radius: 4px;
+	text-decoration: none;
+	transition: background-color 0.3s ease;
+}
+
+/* Thay đổi màu sắc và chữ cho nút Delete */
+.delete-link {
+	background-color: #dc3545;
+	color: #000;
+	padding: 8px 16px;
+	border-radius: 4px;
+	text-decoration: none;
+	transition: background-color 0.3s ease;
+}
+
+/* Thay đổi màu sắc khi hover vào nút Edit và Delete */
+.edit-link:hover, .delete-link:hover {
+	background-color: #f8f9fa;
+}
+</style>
+
+<body>
+	<header th:insert="layout/fragment.html :: header"> </header>
+	<div align="center" class="container">
+		<h1>Edit Book</h1>
+		<br />
+		<form th:action="@{/}" th:object="${book}" method="get">
+			<input type="hidden" th:field="*{id}">
+			<div class="col-6 mb-3">
+				<label class="col-sm-2 col-form-label">Book Title:</label> <input
+					class="form-control" type="text" th:field="*{title}" disabled />
+			</div>
+			<div class="col-6 mb-3">
+				<label class="col-sm-2 col-form-label">Book Author:</label> <input
+					class="form-control" type="text" th:field="*{author}" disabled/>
+			</div>
+			<div class="col-6 mb-3">
+				<label class="col-sm-2 col-form-label">Book Price:</label> <input
+					class="form-control" type="text" th:field="*{price}" disabled/>
+			</div>
+			<div class="col-6 mb-3">
+				<label class="col-sm-2 col-form-label">Book Category:</label> <input
+					class="form-control" type="text" th:field="*{category.name}" disabled/>
+			</div>
+			
+			
+				<div class="col-6 mb-3">
+				<label class="col-sm-2 col-form-label">Photos:</label> <img
+						class="img-thumbnail" th:src="@{${book.photosImagePath}}"
+						width="150" height="200" />
+						
+			</div>
+			
+			<div class="col-6 mb-3">
+				<a th:href="@{'/shoppingcart/add/'+ ${book.id}}"
+						class="delete-link"><span class="glyphicon glyphicon-pencil"></span>Buy</a>
+						
+			</div>
+			
+			<button type="submit" class="btn btn-primary">Về trang chủ</button>
+		</form>
+	</div>
+</body>
+</html>

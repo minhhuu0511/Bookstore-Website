@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8" />
+<title>Role List</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<header th:insert="layout/fragment.html :: header"> </header>
+	<div align="center" class="container">
+		<h1>Role List</h1>
+		<div sec:authorize="hasAnyAuthority('ADMIN')">
+			<a href="/roles/new">Create New Role</a>
+		</div>
+		<br /> <br />
+		<table border="1"
+			class="table table-striped table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th>Role ID</th>
+					<th>Name</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="role : ${roles}">
+					<td th:text="${role.id}">Role ID</td>
+					<td th:text="${role.name}">Name</td>
+					<td>
+						<div sec:authorize="hasAnyAuthority('ADMIN')">
+							<a th:href="@{'/roles/edit/' + ${role.id}}">Edit</a>
+						</div>
+						<div sec:authorize="hasAuthority('ADMIN')">
+							<a th:href="@{'/roles/delete/' + ${role.id}}">Delete</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
